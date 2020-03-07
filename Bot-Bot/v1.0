@@ -1,0 +1,94 @@
+#include <kipr/wombat.h>
+int leftBumper = 2;
+int rightBumper = 1;
+int leftMotor = 1;
+int rightMotor = 0;
+int sideServo = 2;
+int frontServo = 1;
+int clawServo = 0;
+int ticksOfRight = 0;
+int ticksOfLeft = 0;
+int frontSensor = 2;
+int frontDistance = 5;
+int topSensor = 4;
+int main()
+{
+    enable_servos();
+    set_servo_position(sideServo, 1700);
+    set_servo_position(frontServo, 0);
+    while((digital(leftBumper) == 0) || (digital(rightBumper) == 0))
+    {
+        motor(leftMotor, 40);
+        motor(rightMotor, -45);
+    }
+    ao();
+    while(analog(frontSensor) < 3900)
+    {
+        motor(leftMotor, -40);
+        motor(rightMotor, 43);
+    }
+    motor(leftMotor, 40);
+    motor(rightMotor, -43);
+    msleep(2000);
+    ao();
+    msleep(3000);
+    while(analog(frontSensor) < 3900)
+    {
+        motor(leftMotor, -40);
+        motor(rightMotor, 43);
+    }
+    while(analog(frontSensor) > 3900)
+    {
+        motor(leftMotor, -40);
+        motor(rightMotor, 44);
+    }
+    while(analog(frontDistance) < 2900)
+    {
+        motor(leftMotor, -40);
+        motor(rightMotor, 52);
+    }
+    motor(leftMotor, -40);
+    motor(rightMotor, 42);
+    msleep(500);
+    ao();
+    set_servo_position(sideServo, 1944);
+    msleep(300);
+    while(analog(frontSensor) < 3900)
+    {
+        motor(leftMotor, 40);
+        motor(rightMotor, -46);
+    }
+    motor(leftMotor, 40);
+    motor(rightMotor, -45);
+    msleep(2500);
+    motor(leftMotor, 20);
+    motor(rightMotor, 22);
+    msleep(1750);
+    while(analog(frontSensor) < 3900)
+    {
+        motor(leftMotor, -40);
+        motor(rightMotor, 46);
+    }
+    motor(leftMotor, -40);
+    motor(rightMotor, 46);
+    msleep(300);
+    while(analog(frontSensor) > 3900)
+    {
+        motor(leftMotor, -40);
+        motor(rightMotor, 46);
+    }
+    while(analog(topSensor) < 2500)
+    {
+        if(analog(frontSensor) < 3900)
+        {
+            motor(leftMotor, -20);
+            motor(rightMotor, 45);
+        }
+        if(analog(frontSensor) > 3900)
+        {
+            motor(leftMotor, -40);
+            motor(rightMotor, 25);
+        }
+    }    
+    return 0;
+}
