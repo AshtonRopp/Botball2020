@@ -15,7 +15,7 @@ int main()
 {
     enable_servos();
     set_servo_position(sideServo, 1700);
-    set_servo_position(frontServo, 1082);
+    set_servo_position(frontServo, 1350);
     while((digital(leftBumper) == 0) || (digital(rightBumper) == 0))
     {
         motor(leftMotor, 40);
